@@ -1,5 +1,5 @@
+import DataTable from "../../components/DataTable";
+
 export default function List(){
-    return(
-        <div>List</div>
-    )
+    return <DataTable />
 }

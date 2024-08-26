@@ -1,7 +1,3 @@
 export default function Edit() {
-    return(
-        <div>
-            Edit
-        </div>
-    )
+    return <div>Edit</div>
 }

@@ -1,10 +1,10 @@
-export type Uer = {
+export type User = {
     id : string
     fullName: string
-    documente: string
+    document: string
     birthDate: Date
     email: string
-    emailVerificad: boolean
+    emailVerificated: boolean
     mobile: string
     zipCode: string
     addressName: string
