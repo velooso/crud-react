@@ -4,7 +4,7 @@ export type User = {
     document: string
     birthDate: Date
     email: string
-    emailVerificated: boolean
+    emailVerified: boolean
     mobile: string
     zipCode: string
     addressName: string
