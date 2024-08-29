@@ -6,9 +6,9 @@ import Form from "./components/Form";
 export default function Create(){
     return (
         <>
-            <Stack>
+            <Stack sx={{marginBottom: 2}}>
                 <PageTitle title="Criar Novo Usuário"/>
-                <Breadcrumbs path={[{label: "Usuários", to: "users/"}, {label: "Novo"}]}/>
+                <Breadcrumbs path={[{label: "Usuários", to: "/users/"}, {label: "Novo"}]}/>
             </Stack>
             <Paper>
                 <Form/>

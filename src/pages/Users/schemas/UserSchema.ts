@@ -1,7 +1,7 @@
 import *  as yup from "yup";
 import {User} from "../types/User"
 
-export const UserSchem = yup.object<User>(
+export const UserSchema = yup.object<User>(
     {
         fullName: yup.string().required("Este campo é obrigatório"),
     document: yup.string().required("Este campo é obrigatório"),

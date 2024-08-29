@@ -1,26 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import CheckCircleIcon from "@mui/icons-material/CheckCircle"
 import InfoIcon from "@mui/icons-material/Info"
-import {
-  Box,
-  Button,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  Switch,
-  TextField,
-  Tooltip,
-} from "@mui/material"
+import {Box,Button, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Stack, Switch,TextField,Tooltip,} from "@mui/material"
 import { DatePicker } from "@mui/x-date-pickers"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import InputMask from "react-input-mask"
 import { Link as RouterLink, useNavigate, useParams } from "react-router-dom"
 import { useLocalStorage } from "usehooks-ts"
-
 import FormTitle from "../../../components/FormTitle"
 
 import { findBrazilianZipCode } from "../../../services/api"
@@ -48,13 +35,11 @@ export default function Form() {
   const [zipCodeFounded, setZipCodeFounded] = useState<boolean>()
 
   const onSubmit = (data: User) => {
-    // registra o usuário
     console.log(data)
-
+    setUsers ([...users, {...data, id: `${users.length+1}`}])
     navigate("/users/")
   }
 
-  // Função que busca o CEP e preenche os campos de endereço
   const onZipCodeBlur = async (
     event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
   ) => {

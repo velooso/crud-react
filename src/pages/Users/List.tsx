@@ -12,13 +12,13 @@ import DataTable from "../../components/DataTable";
 
 export default function List(){
     const onCall = (params: GridRenderCellParams) => {
-
+      //
 
     }
 
     const onEdit = (params: GridRenderCellParams) => {
 
-
+//
     }
 
     const onDelete = (params: GridRenderCellParams) => {
@@ -64,18 +64,18 @@ export default function List(){
   {
     field: 'actions',
     headerName: 'Ações',
-    width: 150,
+    width: 180,
     renderCell: (params) => (
       <Stack direction= "row" spacing={2}>
-        <IconButton color="success" size='small' onClick={() => onCall(params)}>
+        <IconButton color="success" size='medium' onClick={() => onCall(params)}>
           <WhatsAppIcon fontSize= 'inherit'/>
         </IconButton>
 
-        <IconButton color="info" size='small' onClick={() => onEdit(params)}>
+        <IconButton color="info" size='medium' onClick={() => onEdit(params)}>
           <EditIcon fontSize= 'inherit'/>
         </IconButton>
 
-        <IconButton color="error" size='small' onClick={() => onDelete(params)}>
+        <IconButton color="error" size='medium' onClick={() => onDelete(params)}>
           <DeleteIcon fontSize= 'inherit'/>
         </IconButton>
       </Stack>
@@ -108,7 +108,7 @@ const users = [
         <Stack direction={{ xs: "column", sm: "row"}} gap={1} mb={2}>
           <Box sx={{flexGrow: 1}}>
             <PageTitle title="Lista"/>
-            <Breadcrumbs path={[ {label: "Usuários", to: "/users"}, {label: "Lista"}]}/>            />
+            <Breadcrumbs path={[ {label: "Usuários", to: "/users"}, {label: "Lista"}]}/>
           </Box>
           <Box  sx={{ alingSelf: "center"}}>
             <Button 
