@@ -5,26 +5,35 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { GridRenderCellParams, GridColDef } from "@mui/x-data-grid";
+import { useNavigate } from "react-router-dom";
 import { User } from "./types/User";
 import PageTitle from "../../components/PageTitle";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import DataTable from "../../components/DataTable";
+import { useLocalStorage } from "usehooks-ts"
 
 export default function List(){
-    const onCall = (params: GridRenderCellParams) => {
-      //
-
-    }
-
-    const onEdit = (params: GridRenderCellParams) => {
-
-//
-    }
-
-    const onDelete = (params: GridRenderCellParams) => {
-
   
+  const [users, setUsers] = useLocalStorage<User[]>("users", [])
+  const navigate = useNavigate()
+
+    const onCall = (params: GridRenderCellParams) => {
+      if(!params.row.mobile) return
+      window.location.href = `https://wa.me/55${params.row.mobile.replace(/[^\d]+/g,"" )}`
     }
+
+    const onEdit = (params: GridRenderCellParams) => {  // Alterado de 'row' para 'params'
+      if (!params.id) return;
+      navigate(`/users/${params.id}`);
+    };
+    
+
+    const onDelete = (params: GridRenderCellParams) => {  // Alterado de 'row' para 'params'
+      if (!params.id) return;
+    
+      setUsers(users.filter((user) => user.id !== params.id));
+    };
+    
 
     const columns: GridColDef<User>[] = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -82,25 +91,6 @@ export default function List(){
     ),
   },
 ];
-
-const users = [
-  {
-    id: '1',
-    fullName: 'Felipe Fontoura',
-    document: '986.007.560-30',
-    birthDate: new Date(1982, 1, 1),
-    email: 'felipe@teste.com.br',
-    emailVerified: true,
-    mobile: '(11) 99999-9999',
-    zipCode: '00000-000',
-    addressName: 'Rua Teste',
-    number: '123',
-    complement: '',
-    neighborhood: 'Bairro Teste',
-    city: 'São Paulo',
-    state: 'SP',
-  }
-]
 
 
     return (

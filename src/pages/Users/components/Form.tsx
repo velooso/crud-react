@@ -1,19 +1,16 @@
-import { yupResolver } from "@hookform/resolvers/yup"
-import CheckCircleIcon from "@mui/icons-material/CheckCircle"
+import { useEffect, useState } from "react"
 import InfoIcon from "@mui/icons-material/Info"
-import {Box,Button, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Stack, Switch,TextField,Tooltip,} from "@mui/material"
 import { DatePicker } from "@mui/x-date-pickers"
-import { useState } from "react"
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"
+import {Box,Button, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Stack, Switch,TextField,Tooltip,} from "@mui/material"
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom"
 import { Controller, useForm } from "react-hook-form"
 import InputMask from "react-input-mask"
-import { Link as RouterLink, useNavigate, useParams } from "react-router-dom"
-import { useLocalStorage } from "usehooks-ts"
+import { yupResolver } from "@hookform/resolvers/yup"
 import FormTitle from "../../../components/FormTitle"
-
-import { findBrazilianZipCode } from "../../../services/api"
-
 import { UserSchema } from "../schemas/UserSchema"
-
+import { findBrazilianZipCode } from "../../../services/api"
+import { useLocalStorage } from "usehooks-ts"
 import { User } from "../types/User"
 
 export default function Form() {
@@ -32,11 +29,40 @@ export default function Form() {
     resolver: yupResolver(UserSchema),
   })
 
+  useEffect(() =>{
+    if(!id) return
+
+    const user = users.find( (user) => user.id === id)
+
+    if(!user) return
+
+    setValue("fullName", user.fullName)
+    setValue("document", user.document)
+    setValue("birthDate", new Date(user.birthDate))
+    setValue("email", user.email)
+    setValue("emailVerified", user.emailVerified)
+    setValue("mobile", user.mobile)
+    setValue("zipCode", user.zipCode)
+    setValue("addressName", user.addressName)
+    setValue("number", user.number )
+    setValue("complement", user.complement)
+    setValue("neighborhood", user.neighborhood)
+    setValue("city", user.city)
+    setValue("state", user.state)
+  })
+
   const [zipCodeFounded, setZipCodeFounded] = useState<boolean>()
 
   const onSubmit = (data: User) => {
-    console.log(data)
-    setUsers ([...users, {...data, id: `${users.length+1}`}])
+    if(!id){
+      setUsers ([...users, {...data, id: `${users.length+1}`}])
+    }else{
+      const newUsers = [...users]
+      const indexUser = users.findIndex(( users )=> users.id === id)
+      newUsers[indexUser] = {...data, id}
+
+      setUsers(newUsers)
+    }
     navigate("/users/")
   }
 
@@ -56,7 +82,6 @@ export default function Form() {
       setValue("neighborhood", "")
       setValue("city", "")
       setValue("state", "")
-
       setFocus("addressName")
 
       return

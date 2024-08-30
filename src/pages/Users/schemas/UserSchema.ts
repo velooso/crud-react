@@ -1,9 +1,9 @@
-import *  as yup from "yup";
-import {User} from "../types/User"
+import * as yup from "yup";
+import { User } from "../types/User";
 
-export const UserSchema = yup.object<User>(
-    {
-        fullName: yup.string().required("Este campo é obrigatório"),
+export const UserSchema = yup
+  .object<User>({
+    fullName: yup.string().required("Este campo é obrigatório"),
     document: yup.string().required("Este campo é obrigatório"),
     birthDate: yup.date(),
     email: yup
@@ -22,6 +22,5 @@ export const UserSchema = yup.object<User>(
     neighborhood: yup.string().required("Este campo é obrigatório"),
     city: yup.string().required("Este campo é obrigatório"),
     state: yup.string().required("Este campo é obrigatório"),
-    }
-)
-.required()
+  })
+  .required();
