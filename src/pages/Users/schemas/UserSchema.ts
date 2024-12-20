@@ -6,12 +6,7 @@ export const UserSchema = yup
     fullName: yup.string().required("Este campo é obrigatório"),
     document: yup.string().required("Este campo é obrigatório"),
     birthDate: yup.date(),
-    email: yup
-      .string()
-      .email("E-mail não reconhecido")
-      .required("Este campo é obrigatório"),
-    emailVerified: yup.boolean().default(false),
-    mobile: yup.string().required("Este campo é obrigatório"),
+    mobile: yup.string().required("Este campo é obrigatório"),  
     zipCode: yup
       .string()
       .required("Este campo é obrigatório")

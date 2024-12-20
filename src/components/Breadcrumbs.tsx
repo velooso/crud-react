@@ -4,14 +4,15 @@ import { Link as RouterLink } from "react-router-dom"
   interface BreadcrumbProps {
     path: {
       label: string
-      to?: string}[]
-    }
+      to?: string
+      }[]
+  }
   
   export default function Breadcrumbs({ path }: BreadcrumbProps) {
     return (
       <MaterialBreadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" component={RouterLink} to="/">
-          MIU
+          DashBoard
         </Link>
   
         {path.map((item, index) =>

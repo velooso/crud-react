@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import InfoIcon from "@mui/icons-material/Info"
 import { DatePicker } from "@mui/x-date-pickers"
 import CheckCircleIcon from "@mui/icons-material/CheckCircle"
 import {Box,Button, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Stack, Switch,TextField,Tooltip,} from "@mui/material"
@@ -40,7 +39,6 @@ export default function Form() {
     setValue("document", user.document)
     setValue("birthDate", new Date(user.birthDate))
     setValue("email", user.email)
-    setValue("emailVerified", user.emailVerified)
     setValue("mobile", user.mobile)
     setValue("zipCode", user.zipCode)
     setValue("addressName", user.addressName)
@@ -49,7 +47,7 @@ export default function Form() {
     setValue("neighborhood", user.neighborhood)
     setValue("city", user.city)
     setValue("state", user.state)
-  })
+  }, [id, setValue, users])
 
   const [zipCodeFounded, setZipCodeFounded] = useState<boolean>()
 
@@ -58,8 +56,8 @@ export default function Form() {
       setUsers ([...users, {...data, id: `${users.length+1}`}])
     }else{
       const newUsers = [...users]
-      const indexUser = users.findIndex(( users )=> users.id === id)
-      newUsers[indexUser] = {...data, id}
+      const userIndex = users.findIndex(( user )=> user.id === id)
+      newUsers[userIndex] = {...data, id}
 
       setUsers(newUsers)
     }
@@ -113,6 +111,22 @@ export default function Form() {
         sx={{ marginBottom: 2 }}
         {...register("fullName")}
       />
+      
+      <Stack 
+        direction={{ xs: "column", sm: "row"}}
+        spacing={2}
+        sx={{ marginBottom: 2}}
+      >
+        <Controller
+          control={control}
+          name="birthDate"
+          render={({ field: { ...field } }) => (
+            <FormControl fullWidth={true}>
+              <DatePicker label="Data de Nascimento" {...field} />
+            </FormControl>
+          )}
+        />
+      </Stack>
 
       <Stack
         direction={{ xs: "column", sm: "row" }}
@@ -137,29 +151,6 @@ export default function Form() {
           )}
         />
 
-        <Controller
-          control={control}
-          name="birthDate"
-          render={({ field: { ...field } }) => (
-            <FormControl fullWidth={true}>
-              <DatePicker label="Data de Nascimento" {...field} />
-            </FormControl>
-          )}
-        />
-      </Stack>
-
-      <Stack
-        direction={{ xs: "column", sm: "row" }}
-        spacing={2}
-        sx={{ marginBottom: 2 }}
-      >
-        <TextField
-          label="E-mail"
-          fullWidth={true}
-          error={!!errors.email}
-          helperText={errors.email?.message}
-          {...register("email")}
-        />
 
         <Controller
           control={control}
@@ -351,28 +342,11 @@ export default function Form() {
         )}
       />
 
-      <Controller
-        control={control}
-        name="emailVerified"
-        defaultValue={false}
-        render={({ field: { onChange, value, ...field } }) => (
-          <>
-            <FormControlLabel
-              control={
-                <Switch checked={value} onChange={onChange} {...field} />
-              }
-              label="Email Pré-verificado"
-              sx={{ marginBottom: 2 }}
-            />
-            <Tooltip title="Cadastrar o usuário sem precisar confirmar seu e-mail.">
-              <InfoIcon color="disabled" />
-            </Tooltip>
-          </>
-        )}
-      />
-
       <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-        <Button type="submit" variant="contained" size="large">
+        <Button 
+        type="submit" 
+        variant="contained" 
+        size="large" >
           Criar Usuário
         </Button>
         <Button component={RouterLink} to="/users">
